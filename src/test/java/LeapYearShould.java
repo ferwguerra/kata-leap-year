@@ -1,42 +1,35 @@
 import LeapYear.LeapYear;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
-import java.util.Arrays;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
 
-import static org.junit.Assert.*;
-import static org.junit.runners.Parameterized.*;
-
-@RunWith(Parameterized.class)
 public class LeapYearShould {
-
-    private int year;
-    private boolean result;
-
-    public LeapYearShould(int year, boolean result) {
-        this.year = year;
-        this.result = result;
-    }
-
-    @Parameters
-    public static List<Object[]> data() {
-        return Arrays.asList(new Object[][]{
-                {1997, false},
-                {1996, true},
-                {1992, true},
-                {1900, false},
-                {2000, true},
-                {1800, false}
-        });
-    }
 
     LeapYear leapYear = new LeapYear();
 
     @Test
-    public void isLeapYear() {
-        assertEquals(result, leapYear.isLeapYear(year));
+    public void be_false_if_year_is_not_divisible_by_4() {
+        assertEquals(false, leapYear.isLeapYear(1997));
+    }
+
+    @Test
+    public void be_true_if_year_is_divisible_by_4() {
+        assertEquals(true, leapYear.isLeapYear(1996));
+    }
+
+    @Test
+    public void be_false_if_year_is_divisible_by_4_but_is_divisible_by_100() {
+        assertEquals(false, leapYear.isLeapYear(1990));
+    }
+
+    @Test
+    public void be_true_if_year_is_divisible_by_4_and_is_divisible_by_100_but_is_divisible_by_400() {
+        assertEquals(true, leapYear.isLeapYear(2000));
+    }
+
+    @Test
+    public void be_false_if_year_is_divisible_by_4_and_is_divisible_by_100_but_is_not_divisible_by_400() {
+        assertEquals(false, leapYear.isLeapYear(1800));
     }
 
 }
